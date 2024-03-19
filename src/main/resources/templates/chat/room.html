@@ -33,7 +33,7 @@
 <script src="/webjars/axios/0.17.1/dist/axios.min.js"></script>
 <script>
     function enterRoom(roomId) {
-        const sender = prompt('대화명을 입력해 주세요.');
+        const sender = prompt('닉네임을 입력해주세요.');
         if(sender !== "") {
             localStorage.setItem('wschat.sender',sender);
             localStorage.setItem('wschat.roomId',roomId);
