@@ -3,6 +3,7 @@ package com.sample.stomp.controller;
 import com.sample.stomp.model.ChatRoom;
 import com.sample.stomp.service.ChatService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/chat")
 public class ChatRoomController {
@@ -18,6 +20,8 @@ public class ChatRoomController {
     // 채팅 리스트 화면
     @GetMapping("/room")
     public String rooms(Model model) {
+        List<ChatRoom> chatRooms  = chatService.findAllRoom();
+        model.addAttribute("chatRooms", chatRooms);
         return "/chat/room";
     }
 
@@ -38,7 +42,8 @@ public class ChatRoomController {
     // 채팅방 입장 화면
     @GetMapping("/room/enter/{roomId}")
     public String roomDetail(Model model, @PathVariable String roomId) {
-        model.addAttribute("roomId", roomId);
+        ChatRoom chatRoom = chatService.findById(roomId);
+        model.addAttribute("chatRoom", chatRoom);
         return "/chat/roomdetail";
     }
 
